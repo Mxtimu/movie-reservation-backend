@@ -1,0 +1,17 @@
+# Python & Django
+*.pyc
+__pycache__/
+db.sqlite3
+/venv
+/env
+*.log
+
+# Security
+.env
+secret.key
+
+# IDEs & Editors
+.idea/
+.vscode/
+*.swp
+.DS_Store

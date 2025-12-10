@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Movie, CinemaHall, Showtime
 
-# Register your models here.
+# This allows me to manage these tables on the dashboard
+admin.site.register(Movie)
+admin.site.register(CinemaHall)
+admin.site.register(Showtime)

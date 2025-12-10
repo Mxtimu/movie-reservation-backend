@@ -11,7 +11,7 @@ class Movie(models.Model):
         return self.title
 
 class CinemaHall(models.Model):
-    name = models.CharField(max_length=50) # e.g., "Hall A", "IMAX Screen"
+    name = models.CharField(max_length=50)
     total_seats = models.IntegerField()
 
     def __str__(self):
@@ -25,3 +25,17 @@ class Showtime(models.Model):
 
     def __str__(self):
         return f"{self.movie.title} - {self.start_time.strftime('%Y-%m-%d %H:%M')}"
+
+
+class Seat(models.Model):
+    hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE, related_name='seats')
+    row_number = models.CharField(max_length=5)
+    seat_number = models.CharField(max_length=5)
+    is_vip = models.BooleanField(default=False)
+
+    class Meta:
+
+        unique_together = ('hall', 'row_number', 'seat_number')
+
+    def __str__(self):
+        return f"{self.hall.name} - Row {self.row_number} Seat {self.seat_number}"

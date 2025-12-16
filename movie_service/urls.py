@@ -16,8 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib import admin
+from django.urls import path, include
+# Import these two views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('movies.urls')), #This path just simply forwards any api request to our movie app. well web app
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Login
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Get new token
 ]

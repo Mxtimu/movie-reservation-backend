@@ -1,7 +1,23 @@
-from django.urls import path
-from .views import MovieListCreateView, MovieDetailView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from .views import (
+    MovieViewSet,
+    CinemaHallViewSet,
+    ShowtimeViewSet,
+    SeatViewSet,
+    ReservationViewSet,
+    TestProtectedView
+)
+
+router = DefaultRouter()
+router.register(r'movies', MovieViewSet)
+router.register(r'halls', CinemaHallViewSet)
+router.register(r'showtimes', ShowtimeViewSet)
+router.register(r'seats', SeatViewSet)
+router.register(r'reservations', ReservationViewSet, basename='reservation')
 
 urlpatterns = [
-    path('movies/', MovieListCreateView.as_view(), name='movie-list-create'),
-    path('movies/<int:pk>/', MovieDetailView.as_view(), name='movie-detail'), #the <int:pk> tells Django to expect an id number so that is why that is why that is used
+    path('', include(router.urls)),
+    path('test-protected/', TestProtectedView.as_view(), name='test-protected'),
 ]
